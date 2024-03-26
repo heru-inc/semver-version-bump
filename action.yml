@@ -1,0 +1,8 @@
+name: "Semver Version Bump"
+description: "Detects what version bump is required for a particular commit based on PR labels"
+outputs:
+  bump:
+    description: "The type of bump required for the commit"
+runs:
+  using: "docker"
+  image: "Dockerfile"
