@@ -33,6 +33,7 @@ var (
 type Summary struct {
 	FinalBump    string
 	AllLabels    []string
+	DidFindPR    bool
 	DidFindLabel bool
 	PRLink       string
 	PRNumber     int
@@ -138,6 +139,8 @@ func main() {
 			summary.FinalBump = label
 			summary.DidFindLabel = true
 		}
+	} else {
+		summary.DidFindPR = false
 	}
 
 	writeOutput("bump", summary.FinalBump)
