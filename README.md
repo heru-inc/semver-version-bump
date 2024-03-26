@@ -36,6 +36,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   version-bump:
@@ -45,16 +46,17 @@ jobs:
       pull-requests: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Version Bump
         id: version-bump
-        uses: heru-inc/semver-version-bump@latest
+        uses: heru-inc/semver-version-bump@main
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
           # ... #
 
       - name: Print Bump
-          run: echo "Bump type: ${{ steps.version-bump.outputs.bump }}"
+        run: |
+          echo "Bump type: ${{ steps.version-bump.outputs.bump }}"
 ```
