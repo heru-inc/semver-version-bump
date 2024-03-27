@@ -120,6 +120,7 @@ func main() {
 	summary := &Summary{
 		FinalBump:    defaultBump,
 		DidFindLabel: false,
+		DidFindPR:    false,
 	}
 
 	prs, _, err := client.PullRequests.ListPullRequestsWithCommit(context.Background(), repoOwner, repoName, sha, nil)
@@ -128,6 +129,7 @@ func main() {
 	}
 
 	if len(prs) > 0 {
+		summary.DidFindPR = true
 		pr := prs[0]
 		summary.PRLink = pr.GetHTMLURL()
 		summary.PRNumber = pr.GetNumber()
@@ -139,8 +141,6 @@ func main() {
 			summary.FinalBump = label
 			summary.DidFindLabel = true
 		}
-	} else {
-		summary.DidFindPR = false
 	}
 
 	writeOutput("bump", summary.FinalBump)
